@@ -1,0 +1,70 @@
+package ServiceComponents;
+
+{$R *.res}
+{$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO OFF}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION OFF}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES ON}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DEFINE DEBUG}
+{$ENDIF IMPLICITBUILDING}
+{$IMPLICITBUILD ON}
+
+requires
+  rtl,
+  vcl,
+  vclie,
+  VclSmp;
+
+contains
+  SpinFloat in 'SpinFloat\SpinFloat.pas',
+  LargeArrays in 'LargeArrays\LargeArrays.pas',
+  xyTable in 'xyTable\xyTable.pas',
+  Uipf in 'IPF\Uipf.pas',
+  XYTableList in 'xyTable\xyTableList\XYTableList.PAS',
+  AdoSets in 'Triwaco\AdoSets\AdoSets.pas',
+  GrphNodeMatrix in 'Triwaco\GrphNodeMatrix\GrphNodeMatrix.pas',
+  uTTrishellDataSet in 'Triwaco\TrishellDataSet\uTTrishellDataSet.pas',
+  uTriwacoGrid in 'Triwaco\TriwacoGrid\uTriwacoGrid.pas',
+  TriwacoPRJ in 'Triwaco\TriwacoPRJ\TriwacoPRJ.pas',
+  uTabstractESRIgrid in 'ESRI\TabstractESRIgrid\uTabstractESRIgrid.pas',
+  uTIntegerESRIgrid in 'ESRI\TIntegerESRIgrid\uTIntegerESRIgrid.pas',
+  uTSingleESRIgrid in 'ESRI\TSingleESRIgrid\uTSingleESRIgrid.pas',
+  uESRI in 'ESRI\uESRI.pas',
+  AVGRIDIO in 'ESRI\AVgridIO\AVGRIDIO.PAS',
+  XPMenu in 'XPmenu\XPMenu.pas',
+  ESBPCS_RS_Math in 'esbpcs\ESBPCS for VCL\ESBPCS_RS_Math.pas',
+  ESBPCS_RS_Globals in 'esbpcs\ESBPCS for VCL\ESBPCS_RS_Globals.pas',
+  ESBPCSSystem in 'esbpcs\ESBPCS for VCL\ESBPCSSystem.pas',
+  ESBPCSRegFree in 'esbpcs\ESBPCS for VCL\ESBPCSRegFree.pas',
+  ESBPCSRandom in 'esbpcs\ESBPCS for VCL\ESBPCSRandom.pas',
+  ESBPCSNumEdit in 'esbpcs\ESBPCS for VCL\ESBPCSNumEdit.pas',
+  ESBPCSMsgs in 'esbpcs\ESBPCS for VCL\ESBPCSMsgs.pas',
+  ESBPCSMath in 'esbpcs\ESBPCS for VCL\ESBPCSMath.pas',
+  ESBPCSGlobals2 in 'esbpcs\ESBPCS for VCL\ESBPCSGlobals2.pas',
+  ESBPCSGlobals in 'esbpcs\ESBPCS for VCL\ESBPCSGlobals.pas',
+  ESBPCSEdit in 'esbpcs\ESBPCS for VCL\ESBPCSEdit.pas',
+  ESBPCSDateTime in 'esbpcs\ESBPCS for VCL\ESBPCSDateTime.pas',
+  ESBPCSConvert in 'esbpcs\ESBPCS for VCL\ESBPCSConvert.pas',
+  UDoubleMatrixList in 'DoubleMatrixList\UDoubleMatrixList.pas',
+  SelectAdoSetDialog in 'Triwaco\SelectAdoSetDialog\SelectAdoSetDialog.pas',
+  USelectAdoSetDialog in 'Triwaco\SelectAdoSetDialog\USelectAdoSetDialog.pas' {AdoSetsForm};
+
+end.
