@@ -91,7 +91,6 @@
         <DCC_DcuOutput>..\..\$(Platform)\$(Config)</DCC_DcuOutput>
         <DCC_ExeOutput>..\..\$(Platform)\$(Config)</DCC_ExeOutput>
         <BT_BuildType>Debug</BT_BuildType>
-        <DCC_BplOutput>..\..\$(Platform)\$(Config)</DCC_BplOutput>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
@@ -143,6 +142,7 @@
             <Form>AdoSetsForm</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="sfexec\2.0\SFEXEC.PAS"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

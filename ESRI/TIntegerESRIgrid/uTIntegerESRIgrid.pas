@@ -4,7 +4,7 @@ interface
 
 uses
   SysUtils, Classes,
-  {ShpAPI129,} uTabstractESRIgrid;
+  ShpAPI129, uTabstractESRIgrid;
 
 type
   PIntegerESRIgrid = ^TIntegerESRIgrid;
@@ -21,11 +21,11 @@ type
     Function GetCellType: Integer; Override; { cCELLINT = 1; cCELLFLOAT = 2 }
     Function GetCellMemorySize: Integer; Override;
     Function GetMatrixMemorySize: Integer; Override;
-    //Procedure AddValueFieldToPointShape(hDBFHandle: DBFHandle); Override;
-    //Procedure WriteValueToPointShape(hDBFHandle: DBFHandle;
-    //  const Count, RowNr, ColNr: Integer); Override;
-    //Function SHPCreateObjectFromValue(const RowNr, ColNr: Integer;
-    //  padfX, padfY, padfM: PDouble): PShpObject; Override;
+    Procedure AddValueFieldToPointShape(hDBFHandle: DBFHandle); Override;
+    Procedure WriteValueToPointShape(hDBFHandle: DBFHandle;
+      const Count, RowNr, ColNr: Integer); Override;
+    Function SHPCreateObjectFromValue(const RowNr, ColNr: Integer;
+      padfX, padfY, padfM: PDouble): PShpObject; Override;
     Function PtrToAmatrixCell(const RowNr, ColNr: Integer): Pointer; Override;
     Function PtrToMatrix: Pointer; Override;
     Function GetWindowRowFromChannel(const Channel, RowNr: Integer): Boolean; Override;
@@ -39,8 +39,8 @@ type
   Protected { Members that are intended for use only in the implementation of derived classes are usually protected. }
   Public { A public member is visible wherever its class can be referenced. }
     Function IsMissing(const RowNr, ColNr: Integer): Boolean; Override;
-//    Constructor Clone( const aIntegerESRIgrid: TIntegerESRIgrid; const NewName: String;
-//      var iResult: Integer; AOwner: TComponent); Virtual;
+    Constructor Clone( const aIntegerESRIgrid: TIntegerESRIgrid; const NewName: String;
+      var iResult: Integer; AOwner: TComponent); Virtual;
 
     { -Overige Public functies/procedures }
     Function GetValue(const Row, Col: Integer): Integer; Virtual;
@@ -122,7 +122,7 @@ begin
   Result := SizeOf( IntegerMatrix )
 end;
 
-{Function TIntegerESRIgrid.SHPCreateObjectFromValue(const RowNr, ColNr: Integer;
+Function TIntegerESRIgrid.SHPCreateObjectFromValue(const RowNr, ColNr: Integer;
   padfX, padfY, padfM: PDouble): PShpObject;
 var
   z: Integer;
@@ -132,7 +132,7 @@ begin
   nSHPType := SHPT_POINT;
   Result := SHPCreateObject(nSHPType, -1, 0, NIL, NIL, 1, padfX, padfY,
     @z, padfM);
-end;}
+end;
 
 Procedure TIntegerESRIgrid.WriteElementToASC(var f: TextFile;
   const Row, Col: Integer);
@@ -150,17 +150,17 @@ begin
   WriteToLogFileFmt( '  MissingInteger = %d', [MISSINGINT] );
 end;
 
-{Procedure TIntegerESRIgrid.AddValueFieldToPointShape(hDBFHandle: DBFHandle);
+Procedure TIntegerESRIgrid.AddValueFieldToPointShape(hDBFHandle: DBFHandle);
 begin
   DBFAddField(hDBFHandle, 'Value', FTInteger, 10, 0);
-end;}
+end;
 
-{Procedure TIntegerESRIgrid.WriteValueToPointShape(hDBFHandle: DBFHandle;
+Procedure TIntegerESRIgrid.WriteValueToPointShape(hDBFHandle: DBFHandle;
   const Count, RowNr, ColNr: Integer);
 begin
   DBFWriteIntegerAttribute(hDBFHandle, Count, 1, GetValue(RowNr, ColNr));
   // -hDBFHandle, iShape, iField, Fieldvalue
-end;}
+end;
 
 Function TIntegerESRIgrid.PtrToAmatrixCell(const RowNr, ColNr: Integer)
   : Pointer; { Specifiek voor grid-type }
@@ -204,26 +204,26 @@ begin
   Result := (GetValue(RowNr, ColNr) = MISSINGINT);
 end;
 
-//Constructor TIntegerESRIgrid.Clone( const aIntegerESRIgrid: TIntegerESRIgrid;
-//  const NewName: String; var iResult: Integer; AOwner: TComponent);
-//var
-//  Row: Integer;
-//begin
-//  Create( aIntegerESRIgrid.NRows, aIntegerESRIgrid.NCols, iResult, AOwner );
-//  if iResult <> cNoError then
-//  begin
-//    HandleError( 'Error in "TIntegerESRIgrid.Clone".', true );
-//    Exit;
-//  end;
-// FileName := NewName;
-//  for Row := 0 to NRows - 1 do
-//    IntegerMatrix[Row] := Copy( aIntegerESRIgrid.IntegerMatrix[Row], 0, NCols);
-//  xMin := xMin;
-//  xMax := aIntegerESRIgrid.xMax;
-//  yMin := aIntegerESRIgrid.yMin;
-//  yMax := aIntegerESRIgrid.yMax;
-//  CellSize := aIntegerESRIgrid.CellSize;
-//end;
+Constructor TIntegerESRIgrid.Clone( const aIntegerESRIgrid: TIntegerESRIgrid;
+  const NewName: String; var iResult: Integer; AOwner: TComponent);
+var
+  Row: Integer;
+begin
+  Create( aIntegerESRIgrid.NRows, aIntegerESRIgrid.NCols, iResult, AOwner );
+  if iResult <> cNoError then
+  begin
+    HandleError( 'Error in "TIntegerESRIgrid.Clone".', true );
+    Exit;
+  end;
+ FileName := NewName;
+  for Row := 0 to NRows - 1 do
+    IntegerMatrix[Row] := Copy( aIntegerESRIgrid.IntegerMatrix[Row], 0, NCols);
+  xMin := xMin;
+  xMax := aIntegerESRIgrid.xMax;
+  yMin := aIntegerESRIgrid.yMin;
+  yMax := aIntegerESRIgrid.yMax;
+  CellSize := aIntegerESRIgrid.CellSize;
+end;
 
 { -Other public methods }
 

@@ -4,7 +4,7 @@ interface
 
 uses
   SysUtils, Classes, Controls, Forms,
-  {ShpAPI129,} uESRI, uTabstractESRIgrid;
+  ShpAPI129, uESRI, uTabstractESRIgrid;
 
 type
   PSingleESRIgrid = ^TSingleESRIgrid;
@@ -21,9 +21,9 @@ type
     Function GetCellType: Integer; Virtual;{cCELLINT = 1; cCELLFLOAT = 2 }
     Function GetCellMemorySize: Integer; Override;
     Function GetMatrixMemorySize: Integer; Override;
-    //Procedure AddValueFieldToPointShape( hDBFHandle: DBFHandle ); Override;
-    //Procedure WriteValueToPointShape( hDBFHandle: DBFHandle; const Count, RowNr, ColNr: Integer); Override;
-    // Function SHPCreateObjectFromValue( const RowNr, ColNr: Integer; padfX, padfY, padfM: PDouble ): PShpObject; Override;
+    Procedure AddValueFieldToPointShape( hDBFHandle: DBFHandle ); Override;
+    Procedure WriteValueToPointShape( hDBFHandle: DBFHandle; const Count, RowNr, ColNr: Integer); Override;
+    Function SHPCreateObjectFromValue( const RowNr, ColNr: Integer; padfX, padfY, padfM: PDouble ): PShpObject; Override;
     Function PtrToAmatrixCell( const RowNr, ColNr: Integer ): Pointer; Override;
     Function PtrToMatrix: Pointer; Override;
     Function GetWindowRowFromChannel( const Channel, RowNr: Integer ): Boolean; Override;
@@ -39,8 +39,8 @@ type
 
   Public {A public member is visible wherever its class can be referenced.}
     Function IsMissing( const RowNr, ColNr: Integer ): Boolean; Override;
-//    Constructor Clone( const aSingleESRIgrid: TSingleESRIgrid; const NewName: String;
-//      var iResult: Integer; AOwner: TComponent); Virtual;
+    Constructor Clone( const aSingleESRIgrid: TSingleESRIgrid; const NewName: String;
+      var iResult: Integer; AOwner: TComponent); Virtual;
 //    Constructor Clone( const aAbstractESRIgrid: TabstractESRIgrid; const NewName: String;
 //      var iResult: Integer; AOwner: TComponent); Virtual;
 
@@ -172,7 +172,7 @@ begin
   WriteToLogFileFmt( 'SizeOf( SingleMatrix ) = [%d]', [Result] );
 end;
 
-{Function TSingleESRIgrid.SHPCreateObjectFromValue( const RowNr, ColNr: Integer; padfX, padfY, padfM: PDouble ): PShpObject;
+Function TSingleESRIgrid.SHPCreateObjectFromValue( const RowNr, ColNr: Integer; padfX, padfY, padfM: PDouble ): PShpObject;
 var
   z: Single;
   zd: Double;
@@ -182,7 +182,7 @@ begin
   zd := z;
   nSHPType := SHPT_POINT;
   Result := SHPCreateObject( nSHPType, -1, 0, NIL, NIL, 1, padfX, padfY, @zD, padfM );
-end;}
+end;
 
 Procedure TSingleESRIgrid.WriteElementToASC( var f: TextFile; const Row, Col: Integer );
 var
@@ -199,15 +199,15 @@ begin
   WriteToLogFileFmt( '  MissingSingle = %g', [MissingSingle] );
 end;
 
-{Procedure TSingleESRIgrid.AddValueFieldToPointShape( hDBFHandle: DBFHandle );
+Procedure TSingleESRIgrid.AddValueFieldToPointShape( hDBFHandle: DBFHandle );
 begin
   DBFAddField( hDBFHandle,'Value',FTDouble, 12,6 );
-end;}
+end;
 
-{Procedure TSingleESRIgrid.WriteValueToPointShape( hDBFHandle: DBFHandle; const Count, RowNr, ColNr: Integer);
+Procedure TSingleESRIgrid.WriteValueToPointShape( hDBFHandle: DBFHandle; const Count, RowNr, ColNr: Integer);
 begin
   DBFWriteDoubleAttribute( hDBFHandle, Count, 1, GetValue( RowNr, ColNr ) );     //hDBFHandle, iShape, iField, Fieldvalue
-end;}
+end;
 
 Function TSingleESRIgrid.PtrToAmatrixCell( const RowNr, ColNr: Integer ): Pointer; {Specifiek voor grid-type}
 begin
@@ -241,23 +241,27 @@ end;
 
 //Constructor TSingleESRIgrid.Clone( const aAbstractESRIgrid: TabstractESRIgrid; const NewName: String;
 //      var iResult: Integer; AOwner: TComponent);
-//var
-//  Row: Integer;
-//begin
-//  Create( aAbstractESRIgrid.NRows, aAbstractESRIgrid.NCols, iResult, AOwner );
-//  if iResult <> cNoError then begin
-//    MessageDlg( 'Error in "TSingleESRIgrid.Clone".', mtError, [mbOk], 0);
-//    Exit;
-//  end;
-//  FileName := aAbstractESRIgrid.FileName;
-//  for Row:=0 to NRows-1 do
-//    SingleMatrix[ Row ] := Copy( aSingleESRIgrid.SingleMatrix[ Row ], 0, NCols );
-//  xMin   := aAbstractESRIgrid.xMin;
-//  xMax   := aAbstractESRIgrid.xMax;
-//  yMin   := aAbstractESRIgrid.yMin;
-//  yMax   := aAbstractESRIgrid.yMax;
-//  CellSize := aAbstractESRIgrid.CellSize;
-//end;
+
+Constructor TSingleESRIgrid.Clone( const aSingleESRIgrid: TSingleESRIgrid; const NewName: String;
+      var iResult: Integer; AOwner: TComponent);
+
+var
+  Row: Integer;
+begin
+  Create( aSingleESRIgrid.NRows, aSingleESRIgrid.NCols, iResult, AOwner );
+  if iResult <> cNoError then begin
+    MessageDlg( 'Error in "TSingleESRIgrid.Clone".', mtError, [mbOk], 0);
+    Exit;
+  end;
+  FileName := aSingleESRIgrid.FileName;
+  for Row:=0 to NRows-1 do
+    SingleMatrix[ Row ] := Copy( aSingleESRIgrid.SingleMatrix[ Row ], 0, NCols );
+  xMin   := aSingleESRIgrid.xMin;
+  xMax   := aSingleESRIgrid.xMax;
+  yMin   := aSingleESRIgrid.yMin;
+  yMax   := aSingleESRIgrid.yMax;
+  CellSize := aSingleESRIgrid.CellSize;
+end;
 
 {-Other public methods}
 

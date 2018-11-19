@@ -8,7 +8,7 @@ interface
 
 uses
   SysUtils, Classes, Vcl.Forms, Vcl.Dialogs,
-  uESRI{, ShpAPI129};
+  uESRI, ShpAPI129;
 
 type
   PabstractESRIgrid = ^TabstractESRIgrid;
@@ -35,9 +35,9 @@ type
     Function GetCellMemorySize: Integer; Virtual;
     Function GetMatrixMemorySize: Integer; Virtual;
     Function GetRowMemorySize: Integer; Virtual;
-    //Procedure AddValueFieldToPointShape( hDBFHandle: DBFHandle ); Virtual;
-    //Procedure WriteValueToPointShape( hDBFHandle: DBFHandle; const Count, RowNr, ColNr: Integer); Virtual;
-    //Function SHPCreateObjectFromValue( const RowNr, ColNr: Integer; padfX, padfY, padfM: PDouble ): PShpObject; Virtual;
+    Procedure AddValueFieldToPointShape( hDBFHandle: DBFHandle ); Virtual;
+    Procedure WriteValueToPointShape( hDBFHandle: DBFHandle; const Count, RowNr, ColNr: Integer); Virtual;
+    Function SHPCreateObjectFromValue( const RowNr, ColNr: Integer; padfX, padfY, padfM: PDouble ): PShpObject; Virtual;
     Function PtrToAmatrixCell( const RowNr, ColNr: Integer ): Pointer; Virtual;
     Function PtrToMatrix: Pointer; Virtual;
     Function GetWindowRowFromChannel( const Channel, RowNr: Integer ): Boolean; Virtual;
@@ -75,7 +75,7 @@ type
       var iResult: Integer; AOwner: TComponent); Overload; Virtual;
     Function SaveAs( const iFileName: TFileName ): Integer; overload; Virtual;
     Function SaveAs( const iFileName: TFileName; const newBndBox: TBndBox ): Integer; overload; Virtual;
-    //Function ExportToPointShape( const iFileName: TFileName ): Integer; Virtual;
+    Function ExportToPointShape( const iFileName: TFileName ): Integer; Virtual;
     Function OnlyHasMissingValues: Boolean; Virtual;
     Function FractionOfAreaWithData: Double; Virtual;
     Procedure GetCellCentre( const Row, Col: Integer; var x, y: Single ); Virtual;
@@ -230,7 +230,7 @@ begin
   Move( aBndBox, FBndBox, SizeOf( TBndBox  ) );
 end;
 
-{Function TabstractESRIgrid.ExportToPointShape( const iFileName: TFileName ): Integer;
+Function TabstractESRIgrid.ExportToPointShape( const iFileName: TFileName ): Integer;
 var
   Count: LongInt;
   i, j, iNCols, iNRows: Integer;
@@ -293,13 +293,13 @@ begin
   end;
 end; {-Function TAbstractESRIgrid.ExportToPointShape}
 
-{Function TabstractESRIgrid.SHPCreateObjectFromValue( const RowNr, ColNr: Integer; padfX, padfY, padfM: PDouble ): PShpObject;
+Function TabstractESRIgrid.SHPCreateObjectFromValue( const RowNr, ColNr: Integer; padfX, padfY, padfM: PDouble ): PShpObject;
 begin
 end;
 
 Procedure TabstractESRIgrid.WriteValueToPointShape( hDBFHandle: DBFHandle; const Count, RowNr, ColNr: Integer);
 begin
-end;}
+end;
 
 Procedure TabstractESRIgrid.WriteMatrixBlockToASC( var f: TextFile; const OffSetRow, OffSetCol, EndRow, EndCol: Integer );
 var
@@ -379,9 +379,9 @@ begin
   Result := GetCellMemorySize * NCols;
 end;
 
-{Procedure TabstractESRIgrid.AddValueFieldToPointShape( hDBFHandle: DBFHandle );
+Procedure TabstractESRIgrid.AddValueFieldToPointShape( hDBFHandle: DBFHandle );
 begin
-end;}
+end;
 
 Procedure TabstractESRIgrid.DeAllocateMyMemory;
 begin

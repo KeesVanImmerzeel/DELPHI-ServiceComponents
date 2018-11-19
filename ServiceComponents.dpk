@@ -65,6 +65,7 @@ contains
   ESBPCSConvert in 'esbpcs\ESBPCS for VCL\ESBPCSConvert.pas',
   UDoubleMatrixList in 'DoubleMatrixList\UDoubleMatrixList.pas',
   SelectAdoSetDialog in 'Triwaco\SelectAdoSetDialog\SelectAdoSetDialog.pas',
-  USelectAdoSetDialog in 'Triwaco\SelectAdoSetDialog\USelectAdoSetDialog.pas' {AdoSetsForm};
+  USelectAdoSetDialog in 'Triwaco\SelectAdoSetDialog\USelectAdoSetDialog.pas' {AdoSetsForm},
+  SFEXEC in 'sfexec\2.0\SFEXEC.PAS';
 
 end.
