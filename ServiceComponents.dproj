@@ -143,6 +143,15 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="sfexec\2.0\SFEXEC.PAS"/>
+        <DCCReference Include="ESRI\TSingleESRIgrid\SelectIDFfile\uSelectIDFfile.pas">
+            <Form>SelectIDFfile</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="ESRI\TSingleESRIgrid\SpecifyBndBox\uSpecifyBndBox.pas">
+            <Form>BndBoxDlg</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="DirWatch\DirWatch.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

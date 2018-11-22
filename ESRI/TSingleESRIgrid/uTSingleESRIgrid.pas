@@ -39,8 +39,8 @@ type
 
   Public {A public member is visible wherever its class can be referenced.}
     Function IsMissing( const RowNr, ColNr: Integer ): Boolean; Override;
-    Constructor Clone( const aSingleESRIgrid: TSingleESRIgrid; const NewName: String;
-      var iResult: Integer; AOwner: TComponent); Virtual;
+//    Constructor Clone( const aSingleESRIgrid: TSingleESRIgrid; const NewName: String;
+//      var iResult: Integer; AOwner: TComponent); Virtual;
 //    Constructor Clone( const aAbstractESRIgrid: TabstractESRIgrid; const NewName: String;
 //      var iResult: Integer; AOwner: TComponent); Virtual;
 
@@ -239,29 +239,25 @@ begin
   Result := ( GetValue( RowNr, ColNr ) = MissingSingle );
 end;
 
-//Constructor TSingleESRIgrid.Clone( const aAbstractESRIgrid: TabstractESRIgrid; const NewName: String;
-//      var iResult: Integer; AOwner: TComponent);
-
-Constructor TSingleESRIgrid.Clone( const aSingleESRIgrid: TSingleESRIgrid; const NewName: String;
+{Constructor TSingleESRIgrid.Clone( const aAbstractESRIgrid: TabstractESRIgrid; const NewName: String;
       var iResult: Integer; AOwner: TComponent);
-
 var
   Row: Integer;
 begin
-  Create( aSingleESRIgrid.NRows, aSingleESRIgrid.NCols, iResult, AOwner );
+  Create( aAbstractESRIgrid.NRows, aAbstractESRIgrid.NCols, iResult, AOwner );
   if iResult <> cNoError then begin
     MessageDlg( 'Error in "TSingleESRIgrid.Clone".', mtError, [mbOk], 0);
     Exit;
   end;
-  FileName := aSingleESRIgrid.FileName;
+  FileName := aAbstractESRIgrid.FileName;
   for Row:=0 to NRows-1 do
-    SingleMatrix[ Row ] := Copy( aSingleESRIgrid.SingleMatrix[ Row ], 0, NCols );
-  xMin   := aSingleESRIgrid.xMin;
-  xMax   := aSingleESRIgrid.xMax;
-  yMin   := aSingleESRIgrid.yMin;
-  yMax   := aSingleESRIgrid.yMax;
-  CellSize := aSingleESRIgrid.CellSize;
-end;
+    SingleMatrix[ Row ] := Copy( aAbstractESRIgrid.SingleMatrix[ Row ], 0, NCols );
+  xMin   := aAbstractESRIgrid.xMin;
+  xMax   := aAbstractESRIgrid.xMax;
+  yMin   := aAbstractESRIgrid.yMin;
+  yMax   := aAbstractESRIgrid.yMax;
+  CellSize := aAbstractESRIgrid.CellSize;
+end;}
 
 {-Other public methods}
 

@@ -66,6 +66,9 @@ contains
   UDoubleMatrixList in 'DoubleMatrixList\UDoubleMatrixList.pas',
   SelectAdoSetDialog in 'Triwaco\SelectAdoSetDialog\SelectAdoSetDialog.pas',
   USelectAdoSetDialog in 'Triwaco\SelectAdoSetDialog\USelectAdoSetDialog.pas' {AdoSetsForm},
-  SFEXEC in 'sfexec\2.0\SFEXEC.PAS';
+  SFEXEC in 'sfexec\2.0\SFEXEC.PAS',
+  uSelectIDFfile in 'ESRI\TSingleESRIgrid\SelectIDFfile\uSelectIDFfile.pas' {SelectIDFfile},
+  uSpecifyBndBox in 'ESRI\TSingleESRIgrid\SpecifyBndBox\uSpecifyBndBox.pas' {BndBoxDlg},
+  DirWatch in 'DirWatch\DirWatch.pas';
 
 end.

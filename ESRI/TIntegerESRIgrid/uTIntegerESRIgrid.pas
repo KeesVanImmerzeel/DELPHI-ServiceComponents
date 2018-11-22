@@ -39,8 +39,8 @@ type
   Protected { Members that are intended for use only in the implementation of derived classes are usually protected. }
   Public { A public member is visible wherever its class can be referenced. }
     Function IsMissing(const RowNr, ColNr: Integer): Boolean; Override;
-    Constructor Clone( const aIntegerESRIgrid: TIntegerESRIgrid; const NewName: String;
-      var iResult: Integer; AOwner: TComponent); Virtual;
+    //Constructor Clone( const aIntegerESRIgrid: TIntegerESRIgrid; const NewName: String;
+     // var iResult: Integer; AOwner: TComponent); Virtual;
 
     { -Overige Public functies/procedures }
     Function GetValue(const Row, Col: Integer): Integer; Virtual;
@@ -204,7 +204,7 @@ begin
   Result := (GetValue(RowNr, ColNr) = MISSINGINT);
 end;
 
-Constructor TIntegerESRIgrid.Clone( const aIntegerESRIgrid: TIntegerESRIgrid;
+{Constructor TIntegerESRIgrid.Clone( const aIntegerESRIgrid: TIntegerESRIgrid;
   const NewName: String; var iResult: Integer; AOwner: TComponent);
 var
   Row: Integer;
@@ -223,7 +223,7 @@ begin
   yMin := aIntegerESRIgrid.yMin;
   yMax := aIntegerESRIgrid.yMax;
   CellSize := aIntegerESRIgrid.CellSize;
-end;
+end;}
 
 { -Other public methods }
 
